@@ -4,12 +4,13 @@ package com.Challengel.Literatura.objetos;
 import com.Challengel.Literatura.transjson.Root;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 public class peticion {
     public static String busqueda(String url) {
@@ -28,16 +29,23 @@ public class peticion {
         return devolver;
     }
 
-    public static Libro busquedaLibro(String nombrelibro) throws JsonProcessingException {
+    public static ArrayList<Libro> busquedaLibro(String nombrelibro) throws JsonProcessingException {
         String objetoAConvertir = busqueda("https://gutendex.com/books/?search="+nombrelibro.replace(" ","%20"));
         ObjectMapper transformador = new ObjectMapper();
-        System.out.println(objetoAConvertir);
         Root devolver = transformador.readValue(objetoAConvertir.toString(), Root.class);
         try{
-            return new Libro(devolver.results().get(0));
+            ArrayList<Libro> libros = new ArrayList<Libro>();
+            for (int i = 0; i < devolver.results().size(); i++) {
+                System.out.println(devolver.results().get(i));
+                Libro libro = new Libro(devolver.results().get(i));
+                libros.add(libro);
+                }
+            return libros;
         } catch (IndexOutOfBoundsException e) {
+            System.out.println(e);
             System.out.println("No se encontro el libro");
             return null;
         }
+
     }
 }

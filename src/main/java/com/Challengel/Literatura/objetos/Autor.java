@@ -17,17 +17,25 @@ public class Autor {
     private int fechaNacimiento;
     @Column(name = "fecha_defuncion")
     private int fechaDefuncion;
-    @OneToMany(mappedBy = "id_autor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Libro> libros = new ArrayList<>();
 
     public Autor(String nombre, int fechaNacimiento, int fechaDefuncion) {
-        this.nombre = nombre;
+        if(nombre.contains(",")){String[] nombreSeparado = nombre.split(", ");
+            this.nombre = nombreSeparado[1]+" "+nombreSeparado[0];}
+        else {this.nombre = nombre;}
         this.fechaNacimiento = fechaNacimiento;
         this.fechaDefuncion = fechaDefuncion;
     }
 
     public Autor() {
+        this.nombre = "No disponible";
+        this.fechaNacimiento = 0;
+        this.fechaDefuncion = 0;
+    }
 
+    public String toString(){
+        return "Nombre :"+ nombre +", fecha de nacimiento: "+ fechaNacimiento +", fecha de defunción "+ fechaDefuncion;
     }
 
     public void anadirLibro(Libro libro) {
