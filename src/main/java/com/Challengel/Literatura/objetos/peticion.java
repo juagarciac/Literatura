@@ -12,6 +12,12 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+
+/*
+Codigo para realizar peticiones a  una api conectada al internet
+ */
 public class peticion {
     public static String busqueda(String url) {
         HttpClient client = HttpClient.newHttpClient();
@@ -28,6 +34,11 @@ public class peticion {
         String devolver = response.body();
         return devolver;
     }
+
+
+    /*
+    Metodo que recibe un string con el nombre del libro y devuelve un arraylist con los libros que coinciden con el nombre
+     */
 
     public static ArrayList<Libro> busquedaLibro(String nombrelibro) throws JsonProcessingException {
         String objetoAConvertir = busqueda("https://gutendex.com/books/?search="+nombrelibro.replace(" ","%20"));

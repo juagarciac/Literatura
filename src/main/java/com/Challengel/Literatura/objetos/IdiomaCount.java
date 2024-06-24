@@ -1,5 +1,10 @@
 package com.Challengel.Literatura.objetos;
 
+
+/*
+Objeto que se usa para tener la cantidad de libros en un idioma
+*/
+
 public class IdiomaCount {
 
     private String idioma;

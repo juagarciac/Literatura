@@ -26,18 +26,26 @@ public class Principal {
         this.libroRepository = repo;
     }
 
+    /*
+    * Menu de la aplicacion
+    */
     public void menu() throws JsonProcessingException {
         while (true) {
             System.out.println("Bienvenido a la biblioteca");
             System.out.println("1. Buscar libro");
             System.out.println("2. Mostrar libros");
             System.out.println("3. Mostrar autores");
-            System.out.println("4. Mostrar autores por edad");
+            System.out.println("4. Mostrar autores por año en el cual seguian vivos");
             System.out.println("5. Mostrar idiomas");
             System.out.println("6. Mostrar los 10 libros mas descargados");
             System.out.println("7. Salir");
+
             String opcionE = entrada.nextLine();
             switch (opcionE) {
+
+                /*
+                * Busca uno o varios libros en la base de datos, si no lo encuentra lo busca en la API
+                 */
                 case "1":
                     System.out.println("Ingrese el titulo del libro");
                     String titulo = entrada.nextLine();
@@ -60,10 +68,18 @@ public class Principal {
                             System.out.println("Libro no encontrado");
                         break;}
                     }
+
+                    /*
+                    * Muestra todos los libros en la base de datos
+                     */
                 case "2":
                     this.findAllLibro();
                     break;
 
+
+                /*
+                * Muestra todos los autores en la base de datos
+                 */
                 case "3":
                     List<Autor> autores = libroRepository.findAllAutor();
                     for (Autor a : autores) {
@@ -71,6 +87,9 @@ public class Principal {
                     }
                     break;
 
+                /*
+                * Muestra los autores que esten vivos en un año especifico
+                 */
                 case "4":
                     System.out.println("Ingrese el año");
                     try {
@@ -89,6 +108,10 @@ public class Principal {
                         break;
                     }
 
+
+                    /*
+                    * Muestra los idiomas de los libros en la base de datos
+                     */
                 case "5":
                     List<IdiomaCount> idiomas = libroRepository.findLanguageCounts();
                     System.out.println("Idioma | Numero de libros");
@@ -97,6 +120,10 @@ public class Principal {
                     }
                     break;
 
+
+                /*
+                * Muestra los 10 libros mas descargados
+                 */
                 case "6":
                     List<Libro> librosMasDescargados = libroRepository.find10LibrosmasDescargados(PageRequest.of(0, 10));
                     for (Libro l : librosMasDescargados) {
@@ -104,6 +131,9 @@ public class Principal {
                     }
                     break;
 
+                /*
+                * Sale de la aplicacion
+                 */
                 case "7":
                     System.exit(0);
                     break;
@@ -113,6 +143,9 @@ public class Principal {
         }
     }
 
+    /*
+    * Busca un libro en la base de datos
+     */
     public boolean findBytitulo (String titulo) {
         List<Libro> lista = libroRepository. findByTitulo(titulo);
         if (lista.isEmpty()) {
@@ -124,7 +157,9 @@ public class Principal {
         }
         return true;}
 
-
+    /*
+    * Busca un libro en la API
+     */
     private static ArrayList<Libro> buscarLibro (String titulo) {
         ArrayList<Libro> devolver = null;
         try {

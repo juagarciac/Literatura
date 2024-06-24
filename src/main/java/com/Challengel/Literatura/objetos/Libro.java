@@ -28,6 +28,9 @@ public class Libro {
         this.autor.anadirLibro(this);
     }
 
+    /*
+    Clase que recibe un objeto de tipo Results y lo convierte en un objeto de tipo Libro
+     */
     public Libro(Results results){
         this.idLibro = results.idLibro();
         this.Titulo = results.titulo();
