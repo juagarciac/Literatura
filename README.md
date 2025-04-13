@@ -81,6 +81,6 @@ Se muestran los 10 libros mas descargados en la base de datos local.
 
 Juan Pablo Garcia Carballo
 
-Linkedin www.linkedin.com/in/juan-pablo-garcia-095a62283
+[Linkedin](https://www.linkedin.com/in/juan-pablo-garcia-carballo/)
 
 [Github](https://github.com/juagarciac)  [Correo](mailto:juanpablogarciacarballo@gmail.com)
